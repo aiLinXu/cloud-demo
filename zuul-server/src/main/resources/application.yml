@@ -1,0 +1,33 @@
+server:
+  port: 10000
+spring:
+  application:
+    name: zuul-server
+zuul:
+  routes:
+    eureka-service:
+      path: /user/**   #提供服务的路径上有user/id
+      serviceId: eureka-service
+      strip-prefix: false # 是否在转发时，去除路由前缀，这里不去除，映射路径中的user就会继续转发
+  ignored-services:   #eureka的忽略服务，不去拉取服务
+    - eureka-consumer
+    - eureka-server
+    - zuul-server
+
+eureka:
+  client:
+    service-url:
+     defaultZone: http://127.0.0.1:10086/eureka
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 6000
+ribbon:
+  ConnectTimeout: 1000
+  ReadTimeout: 2000
+  MaxAutoRetries: 0
+  MaxAutoRetriesNextServer: 1

@@ -1,0 +1,10 @@
+server:
+  port: 10086
+spring:
+  application:
+    name: eureka-server #将来会作为微服务名称注入到eureka
+eureka:
+  client:
+    service-url: # EurekaServer的地址，现在是自己的地址，如果是集群，需要写其它Server的地址。
+      defaultZone: http://localhost:10086/eureka
+
